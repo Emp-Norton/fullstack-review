@@ -15,7 +15,18 @@ class App extends React.Component {
 
   search (term) {
     console.log(`${term} was searched`);
-    // TODO
+    $.ajax({
+      url: '/repos',
+      type: 'POST', 
+      contentType: 'application/json',
+      data: {
+        uname: `${term}`
+      },
+      success: function(data){
+        console.log(`${data} was searched`);
+      }
+    })
+    // this is where the API call should be invoked
   }
 
   render () {

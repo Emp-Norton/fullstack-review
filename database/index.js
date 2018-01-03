@@ -1,16 +1,28 @@
+'use strict'
 const mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost/fetcher');
 
-let repoSchema = mongoose.Schema({
-  // TODO: your schema here!
+var connection = mongoose.connection;
+
+connection.on('error', console.error.bind(console, 'connection error:'));
+connection.once('open', function callback () {
+  console.log('connection open')
+});
+
+let repoSchema = mongoose.Schema({ // able to do partial instantiation? I.e. missing fields
+  id: Number,
+  owner: String,
+  name: String,
+  url: String
 });
 
 let Repo = mongoose.model('Repo', repoSchema);
 
-let save = (/* TODO */) => {
-  // TODO: Your code here
-  // This function should save a repo or repos to
-  // the MongoDB
-}
+// let save = (err, data) => {
+//   if (err){
+// 	console.log('failed to save ', data)
+//   }
+// }
 
-module.exports.save = save;
+module.exports.Repo = Repo;
+//module.exports.save = save;
