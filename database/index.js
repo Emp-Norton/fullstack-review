@@ -18,7 +18,7 @@ let repoSchema = mongoose.Schema({ // able to do partial instantiation? I.e. mis
 
 let Repo = mongoose.model('Repo', repoSchema);
 
-// let save = (err, data) => {
+// let save = (err, data) => { // why does this work even when commented? Native method?
 //   if (err){
 // 	console.log('failed to save ', data)
 //   }

@@ -3,7 +3,7 @@ const request = require('request');
 const config = require('../config.js');
 const db = require('../database/index');
 
-let getReposByUsername = (username) => {
+let getReposByUsername = (username) => {  
  
   let options = {
     url: `https://api.github.com/users/${username}/repos`,
@@ -26,9 +26,11 @@ let getReposByUsername = (username) => {
           url: `${r.url}`,
           created: `${r.created_at}`
         })
+        
         repoData.save(function(err, data){
           console.log('saved ', data.id + ' ' + data.name)
         })
+
       })
     }
   });
