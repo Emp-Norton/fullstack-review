@@ -17,21 +17,32 @@ let getReposByUsername = (username) => {
   request(options, function(err, data){
     if (!err){
       var responseArray = JSON.parse(data.body);
-     
-      responseArray.forEach(r =>{
-        var repoData = new db.Repo({
-          id: `${r.id}`,
-          owner: `${r.owner.login}`,
-          name: `${r.name}`,
-          url: `${r.url}`,
-          created: `${r.created_at}`
-        })
-        
-        repoData.save(function(err, data){
-          console.log('saved ', data.id + ' ' + data.name)
-        })
+      if (responseArray.length){
+        responseArray.forEach(r =>{
+          var repoData = new db.Repo({
+            id: `${r.id}`,
+            owner: `${r.owner.login}`,
+            forks: `${r.forks}`,
+            name: `${r.name}`,
+            url: `${r.url}`,
+            created: `${r.created_at}`,
+            description: `${r.description}` || 'description not available'
+          })
 
-      })
+
+          repoData.save(function(err, data){
+            if (err){
+              console.log('Failed to save')
+            } else {
+            console.log('saved ', data.id + ' ' + data.name)
+            }
+          })
+        })
+      } else {
+        console.log('Bad response from Git API - Check the username')
+      }
+    } else {
+      console.log(err)
     }
   });
 

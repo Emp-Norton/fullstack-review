@@ -24,18 +24,18 @@ app.get('/repos', function (req, res) {
 
 	// TODO: 
 	// Limit to 25 responses 
-	// implement an ordering schema 
+	// implement an ordering schema
+	// prevent duplicates 
 	// render on the actual page
 	console.log('serving GET for ', req.url)
 	db.Repo.find(function(err, data){
-		var repos = data; // this is an array of ALL entries in DB. 
+		var repos = data;  
 	
-	    var sorted = repos.sort(function(a, b){
-	    	return a.id - b.id // why doesn't this work for ID or Created_at?
+	    repos.sort(function(a, b){
+	    	return b.forks - a.forks 
 	    })
-
-		console.log(repos.length)
-		res.end('');
+		
+		res.send(repos);
 	})
 });
 

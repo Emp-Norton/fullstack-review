@@ -10,13 +10,16 @@ connection.once('open', function callback () {
 });
 
 let repoSchema = mongoose.Schema({ // able to do partial instantiation? I.e. missing fields
-  id: Number,
+  id: {type: Number, index: true, unique: true},
   owner: String,
   name: String,
+  forks: Number,
   url: String
 });
 
 let Repo = mongoose.model('Repo', repoSchema);
+
+ 
 
 // let save = (err, data) => { // why does this work even when commented? Native method?
 //   if (err){
