@@ -1,6 +1,6 @@
 'use strict' // any way to generalize this across all files?
 const request = require('request');
-const config = require('../config.js');
+const config = require('../config.example.js');
 const db = require('../database/index');
 
 let getReposByUsername = (username) => {  
